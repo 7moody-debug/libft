@@ -1,0 +1,21 @@
+-ft_isalpha
+*Checks if the given character is an alphabet letter.
+*Accepts both:
+Uppercase → 'A' to 'Z'
+Lowercase → 'a' to 'z'
+*Returns:
+1 → if the character is alphabet
+0 → otherwise
+*Compare using ASCII values (simple range checks).
+*No memory allocation, no loops needed.
+*Input is an int, but we compare it against char ranges.
+*Behavior same as original isalpha() from <ctype.h>
+
+int ft_isalpha(int c)
+{
+    if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+    {
+        return 1;
+    }
+    return 0;
+}
