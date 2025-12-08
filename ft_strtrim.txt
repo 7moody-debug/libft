@@ -1,0 +1,52 @@
+#include <stdlib.h>
+
+static int	to_trim(const char *set, char c)
+{
+	size_t	i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (c == set[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	*ft_strtrim(const char *s1, const char *set)
+{
+	size_t	start;
+	size_t	end;
+	size_t	len;
+	char	*trimmed_str;
+	size_t	k;
+
+	if (!s1 || !set)
+		return (NULL);
+	len = 0;
+	while (s1[len])
+		len++;
+	start = 0;
+	while (start < len && to_trim(set, s1[start]))
+		start++;
+	if (start == len)
+	{
+		trimmed_str = (char *)malloc(1);
+		if (!trimmed_str)
+			return (NULL);
+		trimmed_str[0] = '\0';
+		return (trimmed_str);
+	}
+	end = len - 1;
+	while (end > start && to_trim(set, s1[end]))
+		end--;
+	trimmed_str = (char *)malloc(end - start + 2);
+	if (!trimmed_str)
+		return (NULL);
+	k = 0;
+	while (start <= end)
+		trimmed_str[k++] = s1[start++];
+	trimmed_str[k] = '\0';
+	return (trimmed_str);
+}
