@@ -1,0 +1,130 @@
+*This project has been created as part of the 42 curriculum by mohammad nabil.*
+
+# get_next_line
+
+## Description
+
+The **get_next_line** project consists of implementing a function that reads a file descriptor line by line.
+Each call to the function returns the next line from the given file descriptor, including the terminating
+newline character (`\n`) if it exists.
+
+The main goal of this project is to understand and correctly use:
+- Static variables
+- File descriptors
+- The `read()` system call
+- Memory management in C
+
+This function is designed to work with both files and standard input.
+
+---
+
+## Function Prototype
+
+```c
+char *get_next_line(int fd);
+Behavior
+Each call returns one line from the file descriptor.
+
+The returned line includes the \n character, except when the end of file is reached and the last line does not end with \n.
+
+When there is nothing left to read or an error occurs, the function returns NULL.
+
+The function reads as little as possible from the file descriptor.
+
+Files
+get_next_line.c
+Contains the main logic of the function.
+
+get_next_line_utils.c
+Contains helper functions (string operations, memory handling, etc.).
+
+get_next_line.h
+Header file containing the function prototype and required includes.
+
+Compilation
+The project must be compiled with a defined BUFFER_SIZE.
+
+Example:
+
+bash
+Copy code
+cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c
+The function must compile and work correctly with different values of BUFFER_SIZE, including very small
+(e.g. 1) and very large values.
+
+Algorithm Explanation
+The function uses a static variable to store leftover data between function calls.
+
+General steps:
+
+Read data from the file descriptor into a buffer using read().
+
+Append the read data to a static storage variable.
+
+Check if a newline character (\n) exists in the stored data.
+
+If a newline is found:
+
+Extract the line up to and including \n.
+
+Save the remaining data for the next call.
+
+If the end of file is reached:
+
+Return the remaining data if it exists.
+
+Otherwise, return NULL.
+
+This approach ensures efficient reading and correct behavior across multiple calls.
+
+Edge Cases Handled
+Empty files
+
+Files without a trailing newline
+
+Multiple consecutive newline characters
+
+Very small or very large BUFFER_SIZE
+
+Reading from standard input
+
+Invalid or closed file descriptors
+
+Forbidden Functions
+lseek()
+
+Global variables
+
+Using libft
+
+Only the following external functions are allowed:
+
+read
+
+malloc
+
+free
+
+Resources
+man 2 read
+
+https://en.wikipedia.org/wiki/Static_variable
+
+GNU C Library documentation
+
+AI Usage
+AI tools were used only for guidance and conceptual understanding, such as:
+
+Clarifying the behavior of read()
+
+Understanding static variables
+
+Structuring explanations and documentation
+
+No code was copied directly from AI-generated solutions.
+
+Notes
+This project was developed in accordance with the 42 Norm.
+All allocated memory is properly freed to avoid leaks.
+
+Once validated, this function can be safely added to libft for future use.
